@@ -35,14 +35,19 @@ class CrudPelis {
         $select->execute();
         $peli=$select->fetch();
 
-        $pelicula= new Pelicula(); 
+        if(!$peli){
+            return null;
+        }
+        else{
+            $pelicula= new Pelicula(); 
 
-        $pelicula->setId($peli['id']); 
-        $pelicula->setTitulo($peli['titulo']); 
-        $pelicula->setAnyo($peli['anyo']); 
-        $pelicula->setDuracion($peli['duracion']); 
+            $pelicula->setId($peli['id']); 
+            $pelicula->setTitulo($peli['titulo']); 
+            $pelicula->setAnyo($peli['anyo']); 
+            $pelicula->setDuracion($peli['duracion']); 
 
-        return $pelicula;
+            return $pelicula;
+        }
     }
 
     
@@ -50,7 +55,7 @@ class CrudPelis {
         $db=Database::conectar();
         $delete=$db->prepare('DELETE FROM peliculas WHERE id=:id'); 
         $delete->bindValue(':id', $id);
-        $delete->execute();
+        return $delete->execute();
     }
     
 
@@ -60,7 +65,7 @@ class CrudPelis {
         $insert->bindValue(':titulo', $pelicula->getTitulo());
         $insert->bindValue(':anyo', $pelicula->getAnyo());
         $insert->bindValue(':duracion', $pelicula->getDuracion());
-        $insert->execute();
+        return $insert->execute();
     }
 
     public function updatePelicula($pelicula){
@@ -70,8 +75,8 @@ class CrudPelis {
         $update->bindValue(':titulo', $pelicula->getTitulo());
         $update->bindValue(':anyo', $pelicula->getAnyo());
         $update->bindValue(':duracion', $pelicula->getDuracion());
-        print_r($update);
-        $update->execute();
+        //print_r($update);
+        return $update->execute();
     }
 
     public function obtenerActoresPelicula($id){

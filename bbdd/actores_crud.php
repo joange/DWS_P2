@@ -36,13 +36,18 @@ class CrudActores {
         $select->execute();
         $actor=$select->fetch();
 
-        $act= new Actor(); 
-        $act->setId($actor['id']); 
-        $act->setNombre($actor['nombre']); 
-        $act->setAnyoNacimiento($actor['anyoNacimiento']); 
-        $act->setPais($actor['pais']); 
-        
-        return $act;
+        if (!$actor){
+            return null;
+        }
+        else{
+            $act= new Actor(); 
+            $act->setId($actor['id']); 
+            $act->setNombre($actor['nombre']); 
+            $act->setAnyoNacimiento($actor['anyoNacimiento']); 
+            $act->setPais($actor['pais']); 
+            
+            return $act;
+        }
     
     }
 
@@ -52,13 +57,13 @@ class CrudActores {
         $insert->bindValue(':nombre', $actor->getNombre());
         $insert->bindValue(':anyoNacimiento', $actor->getAnyoNacimiento());
         $insert->bindValue(':pais', $actor->getPais());
-        $insert->execute();
+        return $insert->execute();
     }
     public function deleteActor($id){
         $db=Database::conectar();
         $delete=$db->prepare('DELETE FROM actores WHERE id=:id'); 
         $delete->bindValue(':id', $id);
-        $delete->execute();
+        return $delete->execute();
     }
 
     public function updateActor($actor){
@@ -68,7 +73,7 @@ class CrudActores {
         $update->bindValue(':nombre', $actor->getNombre());
         $update->bindValue(':anyoNacimiento', $actor->getAnyoNacimiento());
         $update->bindValue(':pais', $actor->getPais());
-        $update->execute();
+        return $update->execute();
     }
 
 }

@@ -34,13 +34,18 @@ class CrudDires {
         $select->execute();
         $dire=$select->fetch();
 
-        $dir= new Director(); 
-        $dir->setId($dire['id']); 
-        $dir->setNombre($dire['nombre']); 
-        $dir->setAnyoNacimiento($dire['anyoNacimiento']); 
-        $dir->setPais($dire['pais']); 
-        
-        return $dir;
+        if(!$dire){
+            return null;
+        }
+        else{
+            $dir= new Director(); 
+            $dir->setId($dire['id']); 
+            $dir->setNombre($dire['nombre']); 
+            $dir->setAnyoNacimiento($dire['anyoNacimiento']); 
+            $dir->setPais($dire['pais']); 
+            
+            return $dir;
+        }
     
     }
 
@@ -50,13 +55,13 @@ class CrudDires {
         $insert->bindValue(':nombre', $director->getNombre());
         $insert->bindValue(':anyoNacimiento', $director->getAnyoNacimiento());
         $insert->bindValue(':pais', $director->getPais());
-        $insert->execute();
+        return $insert->execute();
     }
     public function deleteDirector($id){
         $db=Database::conectar();
         $delete=$db->prepare('DELETE FROM directores WHERE id=:id'); 
         $delete->bindValue(':id', $id);
-        $delete->execute();
+        return $delete->execute();
     }
 
     public function updateDirector($director){
@@ -66,7 +71,7 @@ class CrudDires {
         $update->bindValue(':nombre', $director->getNombre());
         $update->bindValue(':anyoNacimiento', $director->getAnyoNacimiento());
         $update->bindValue(':pais', $director->getPais());
-        $update->execute();
+        return $update->execute();
     }
 
  

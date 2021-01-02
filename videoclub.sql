@@ -159,10 +159,9 @@ INSERT INTO `peliculas_directores` (`id_pelicula`, `id_director`) VALUES
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
-  `email` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `password` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `guardaCredenciales` tinyint(1) NOT NULL
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `email` varchar(50) UNIQUE COLLATE latin1_spanish_ci NOT NULL,
+  `password` varchar(50) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -191,12 +190,7 @@ ALTER TABLE `peliculas_directores`
   ADD PRIMARY KEY (`id_pelicula`,`id_director`),
   ADD KEY `id_director` (`id_director`);
 
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+
 
 --
 -- Restricciones para tablas volcadas

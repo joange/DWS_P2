@@ -1,3 +1,21 @@
+<?php
+
+session_start();
+$user="";
+
+// Si l'usuari ja està loguejat
+if (isset($_SESSION["user"])){
+    $user=$_SESSION["user"];
+}
+else{   // 
+    header("Location: ./index.php");
+}
+
+if (!isset($_GET["id"])){
+    header("Location: ./peliculas.php");
+}
+
+?>
 <!DOCTYPE html>
 
 <head>
@@ -16,7 +34,25 @@
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
     <div class="container">
-        <!-- ESCRIBE AQUÍ TU CÓDIGO -->
+    <?php
+    require_once('bbdd/directores_crud.php');
+
+    $crudDirector= new CrudDires(); 
+
+    $dire=$crudDirector->getDirectorById($_GET["id"]);
+
+    if (!isset($dire) || is_null($dire)){
+        header("Location: ./peliculas.php");
+    }
+
+    echo '<div class="card-body" style="margin: auto;background:LIGHTSKYBLUE;width:50%;">';
+    echo '<b>Nombre</b>:'. $dire->getNombre() . '<br>';
+    echo '<b>Anyo</b>:'. $dire->getAnyoNacimiento() . '<br>';
+    echo '<b>Pais</b>:'. $dire->getPais() . '<br>';
+    echo '</div>';
+
+    ?>
+    <a href="javascript:history.back()"> Volver Atrás</a>
     </div>
 </body>
 

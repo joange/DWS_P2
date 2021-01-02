@@ -17,17 +17,23 @@
 require_once('bbdd/peliculas_crud.php');
 require_once('bbdd/directores_crud.php');
 require_once('bbdd/actores_crud.php');
+require_once('bbdd/usuarios_crud.php');
+/* En principi s'importen als propis CRUDS
+require_once('./classes/ususarios.php');
 require_once('./classes/peliculas.php');
 require_once('./classes/directores.php');
 require_once('./classes/actores.php');
+*/
 
 
 echo "INICI<hr>";
 //$crudPeli= new CrudPelis(); 
 //$crudDire= new CrudDires(); 
-$crudActor= new CrudActores(); 
+//$crudActor= new CrudActores(); 
 
+$crudUser= new CrudUsuario(); 
 
+echo "CRUD<hr>";
 
 //$crudPeli->deletePelicula(17);
 
@@ -102,7 +108,10 @@ $crudDire->updateDirector($dir);
 $dires=$crudDire->getAllDirectores();
 print_r($dires);
 */
+
+/*
 echo "<h1> Actores </h1>";
+
 
 echo "TOTS ELS ACTORS<hr>";
 $actores=$crudActor->getAllActores();
@@ -137,7 +146,39 @@ $crudActor->updateActor($act);
 $actores=$crudActor->getAllActores();
 print_r($actores);
 
+*/
+
+/*
+
+$users=$crudUser->listarUsuarios();
+print_r($users);
+
+
+$user=new Usuario();
+$user->setEmail('jgcamarena@gmail.com');
+$user->setPassword("123456");
+
+//$crudUser->insertUsuario($user);
+
+$users=$crudUser->listarUsuarios();
+print_r($users);
+
+if ($crudUser->validaUsuario($user))
+    echo "L'usuari " . $user->getEmail() . " és correcte.";
+else
+    echo "L'usuari " . $user->getEmail() . " és incorrecte.";
+
+*/
+$user=new Usuario();
+$user->setEmail('jgcamarena@gmail.com');
+$user->setPassword("123456");
+
+if ($crudUser->existeEmail($user))
+    echo "L'usuari " . $user->getEmail() . " existeix a la BBDD.";
+else
+    echo "L'usuari " . $user->getEmail() . " no Existeix.";
 ?>
+
 
 <h3>FINAL</h3>
 
