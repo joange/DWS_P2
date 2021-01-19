@@ -61,7 +61,8 @@ class CrudDires {
         $db=Database::conectar();
         $delete=$db->prepare('DELETE FROM directores WHERE id=:id'); 
         $delete->bindValue(':id', $id);
-        return $delete->execute();
+        $delete->execute();
+        return $delete->rowCount();
     }
 
     public function updateDirector($director){

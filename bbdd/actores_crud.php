@@ -63,7 +63,8 @@ class CrudActores {
         $db=Database::conectar();
         $delete=$db->prepare('DELETE FROM actores WHERE id=:id'); 
         $delete->bindValue(':id', $id);
-        return $delete->execute();
+        $delete->execute();
+        return $delete->rowCount();
     }
 
     public function updateActor($actor){
@@ -73,7 +74,8 @@ class CrudActores {
         $update->bindValue(':nombre', $actor->getNombre());
         $update->bindValue(':anyoNacimiento', $actor->getAnyoNacimiento());
         $update->bindValue(':pais', $actor->getPais());
-        return $update->execute();
+        $update->execute();
+        return $update->rowCount();
     }
 
 }

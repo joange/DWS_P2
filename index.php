@@ -10,6 +10,9 @@ session_start();
 $email="";
 $password="";
 
+if (isset($_GET["salir"])){
+    session_destroy();
+}
 
 // Si l'usuari te la sessió oberta passem a pelicules
 if (isset($_SESSION["user"])){
@@ -71,11 +74,12 @@ else{   //
 
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous">  
-            
+       
         <link rel="stylesheet" href="./css/estilos.css">  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
     </head>
     <body>
 
@@ -85,7 +89,7 @@ else{   //
         <a href="./peliculas.php" class="btn btn-dark btn-right">Cerrar session</a>
         </div> 
 -->
-        <main class="login-form">
+  <main class="login-form">
     <div class="container">
         <div class="row justify-content-center">
         <img src="./imgs/portada.png"> 

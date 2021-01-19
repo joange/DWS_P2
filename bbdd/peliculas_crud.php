@@ -55,7 +55,9 @@ class CrudPelis {
         $db=Database::conectar();
         $delete=$db->prepare('DELETE FROM peliculas WHERE id=:id'); 
         $delete->bindValue(':id', $id);
-        return $delete->execute();
+        $delete->execute();
+        $count = $delete->rowCount();
+        return ($count==1);
     }
     
 
@@ -76,7 +78,8 @@ class CrudPelis {
         $update->bindValue(':anyo', $pelicula->getAnyo());
         $update->bindValue(':duracion', $pelicula->getDuracion());
         //print_r($update);
-        return $update->execute();
+        $update->execute();
+        return $update->rowCount();
     }
 
     public function obtenerActoresPelicula($id){
